@@ -23,7 +23,7 @@ COMPILE_FLAGS="-Wall -Wextra -o test-music"
 
 # Check if all source files exist in the specified directory.
 for file in "${SOURCE_FILES[@]}"; do
-    if [! -f "${SOURCE_DIR}/${file}" ]; then
+    if [ ! -f "${SOURCE_DIR}/${file}" ]; then
         echo "Error: The source file ${SOURCE_DIR}/${file} does not exist. Please check the file path and file name."
         exit 1
     fi

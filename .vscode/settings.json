@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "*.f": "fortran"
+    },
+    "workbench.editor.customLabels.patterns": {
+        "*.f": "fortran"
     }
 }

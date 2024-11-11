@@ -92,9 +92,11 @@ c	write(6,3)EM2,SB,SP,SN,SE
   3	FORMAT(1X,'LOG(E)=',F4.1,1X,'B=',E10.3,
      *  1X,'P=',E10.3,1X,'N=',E10.3,1X,'E=',E10.3)
   1	CONTINUE
-	OPEN(UNIT=3,NAME=
-     *  'music-cross-sections.dat',
-     *  FORM='FORMATTED',STATUS='unknown')
+C	OPEN(UNIT=3,NAME='music-cross-sections.dat',FORM='FORMATTED',STATUS='REPLACE')
+	OPEN(UNIT=3,
+     *     FILE='music-cross-sections.dat',
+     *     STATUS='REPLACE',
+     *     FORM='FORMATTED')
 	WRITE(3,4)CS
 4	FORMAT(4(71(20(5E14.6/)/)/)/)
 	CLOSE(3)
@@ -244,10 +246,9 @@ c	WRITE(6,3)EM2,SB,SP,SN,EMULO(K,5)*em,B0
      *  1X,'P=',E10.3,1X,'N=',E10.3,1X,
      *	E11.4,1X,'I=',E11.4)
 1	CONTINUE
-	OPEN(UNIT=3,NAME=
-     *  'music-eloss.dat',
-	2    FORM='FORMATTED',STATUS='unknown')
-c        WRITE(6,3)EM2,SB,SP,SN,se,EMULO(71,5),B0
+	OPEN(UNIT=3,FILE='music-eloss.dat',
+	2    FORM='FORMATTED',STATUS='REPLACE')
+c        WRITE(6,3)EM2,SB,SP,SN,se,EMULO(71,5),B0  unknown
 	WRITE(3,4)EMULO
 4	FORMAT(16(5E12.5/),E12.5/)
 	WRITE(3,5)zmean,amean
