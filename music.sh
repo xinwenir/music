@@ -4,7 +4,7 @@
 FC=gfortran
 
 # Set the directory where the source files are located. Here we assume all source files are in the directory named'music', which can be adjusted as needed.
-SOURCE_DIR="music"
+SOURCE_DIR="src"
 
 # Define the list of source files, listing each source file in the order of dependency relationships.
 SOURCE_FILES=(
