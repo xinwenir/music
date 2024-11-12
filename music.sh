@@ -6,7 +6,7 @@ FC=gfortran
 # Set the directory where the source files are located and the output directory for the executable file. These can be adjusted according to actual requirements.
 SOURCE_DIR=$(dirname $(readlink -f "$0"))/src
 echo ${SOURCE_DIR}
-OUTPUT_DIR="."
+OUTPUT_DIR=$(dirname $(readlink -f "$0"))/out
 
 # Define the list of source files, ensuring the file names are accurate and the order conforms to the dependency relationship.
 SOURCE_FILES=(
@@ -29,7 +29,7 @@ for file in "${SOURCE_FILES[@]}"; do
         echo "Error: The source file ${SOURCE_DIR}/${file} does not exist. Please check the file path and file name."
         exit 1
     fi
-end
+done
 
 cd $SOURCE_DIR
 
@@ -41,3 +41,6 @@ if [ $? -eq 0 ]; then
 else
     echo -e "\033[31mCompilation failed. Please check the error message. Possible issues could be syntax errors in the source files or dependency problems, etc.\033[0m"
 fi
+echo "Running!!!"
+cd $OUTPUT_DIR
+./test-music
