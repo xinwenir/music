@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Set the Fortran compiler. Here we assume using gfortran, which can be modified according to the actual installation situation.
+# Set the Fortran compiler. It can be modified according to the actual situation, such as changing to 'ifort', etc.
 FC=gfortran
 
-# Set the directory where the source files are located. Here we assume all source files are in the directory named'music', which can be adjusted as needed.
-SOURCE_DIR="src"
+# Set the directory where the source files are located and the output directory for the executable file. These can be adjusted according to actual requirements.
+SOURCE_DIR=$(dirname $(readlink -f "$0"))/src
+echo ${SOURCE_DIR}
+OUTPUT_DIR="."
 
-# Define the list of source files, listing each source file in the order of dependency relationships.
+# Define the list of source files, ensuring the file names are accurate and the order conforms to the dependency relationship.
 SOURCE_FILES=(
     "test-music.f"
     "music-crosssections.f"
@@ -18,23 +20,24 @@ SOURCE_FILES=(
     "ranmar.f"
 )
 
-# Compilation options. Here we add some common options, such as displaying warning messages, etc. These can be further expanded according to requirements.
-COMPILE_FLAGS="-Wall -Wextra -o test-music"
+# Compilation options. More options can be added as needed, such as optimization levels, etc.
+COMPILE_FLAGS="-Wall -Wextra -o ${OUTPUT_DIR}/test-music"
 
-# Check if all source files exist in the specified directory.
+# Check if all source files exist.
 for file in "${SOURCE_FILES[@]}"; do
-    if [ ! -f "${SOURCE_DIR}/${file}" ]; then
+    if [! -f "${SOURCE_DIR}/${file}" ]; then
         echo "Error: The source file ${SOURCE_DIR}/${file} does not exist. Please check the file path and file name."
         exit 1
     fi
-done
+end
 
-# Execute the compilation command to compile all source files according to the set compilation options.
-${FC} ${COMPILE_FLAGS} "${SOURCE_DIR}/${SOURCE_FILES[@]}"
+cd $SOURCE_DIR
 
-# Determine whether the compilation is successful based on the return value of the compilation command.
+# Execute the compilation command.
+${FC} ${COMPILE_FLAGS} "${SOURCE_FILES[@]}"
+
 if [ $? -eq 0 ]; then
-    echo "Compilation successful. The executable file test-music has been generated."
+    echo -e "\033[32mCompilation successful. The executable file ${OUTPUT_DIR}/test-music has been generated.\033[0m"
 else
-    echo "Compilation failed. Please check the error message. Possible issues could be syntax errors in the source files or dependency problems, etc."
+    echo -e "\033[31mCompilation failed. Please check the error message. Possible issues could be syntax errors in the source files or dependency problems, etc.\033[0m"
 fi
