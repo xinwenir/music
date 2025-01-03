@@ -63,14 +63,12 @@
 *! 3. V.A.Kudryavtsev, Computer Physics Communications, 180 (2009) 339; 
 *! http://dx.doi.org/10.1016/j.cpc.2008.10.013; arXiv:0810.4635 [physics.comp-ph]
 *! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
-*
+*! source ~/project/fortran-hls-main/venv/bin/activate
+*! fxx music_sim.f music_sim 1 music_sim hw 2 0 -platform /home/zxw/project/xilinx_project/kv260_custom_platform/system_wrapper.xsa -I src/ -temp_dir tmp
+*! fxx src/music.f music 1 music hw 2 0 -platform /home/zxw/project/xilinx_project/kv260_custom_platform/system_wrapper.xsa -I src/ -temp_dir tmp
+*! rm -rf tmp ii.txt interfaces.txt kernel_names.txt test_music.x* unroll_factor.txt v++* xcd.log xrc.log
 *       The definitions below should be present in your 'main' program.
-	
-	
-	include 'music-crosssections.f'
-	include 'music.f'
-c	include 'ranlux.f'
-	
+    SUBROUTINE MUSIC_SIM(run_num)
 	implicit real*8 (a-h,o-z)
 	parameter (pi=3.141592654)
 	real*4 yfl
@@ -79,29 +77,30 @@ c	include 'ranlux.f'
 
 *       Define the rock or other material here; max number of elements = 20
 
-*       Example for standard rock
+*   Example for standard rock
+    if(run_num.eq.1)then
 	data zz0/11.,19*0./    ! standard rock
 	data a0/22.,19*0./     ! standard rock
 	data fr0/1.,19*0./     ! standard rock
 	data par_ion/136.4,-3.774,0.083,3.412,3.055,0.049/ !density correction parameters (st. rock)
+    end if
 
-*       Example for another type of rock
-c	data zz0/1.,6.,7.,8.,11.,
-c	1    12.,13.,19.,20.,26.,10*0./  !array of atomic numbers for all elements
-c	data a0/1.00794,12.0107,14.067,15.9994,22.98977,
-c	1    24.3050,26.98154,39.0983,40.078,55.845,10*0./ !array of atomic weights
-c	data fr0/0.01,0.05,0.15,0.40,0.05,
-c	1    0.06,0.06,0.01,0.20,0.01,10*0./ !fraction by mass for all elements
-c	data par_ion/136.4,-3.774,0.083,3.412,3.055,0.049/ !density correction parameters (st. rock)
-
+*   Example for another type of rock
+    if(run_num.eq.2)then
+	data zz0/1.,6.,7.,8.,11.,12.,13.,19.,20.,26.,10*0./  !array of atomic numbers for all elements
+	data a0/1.00794,12.0107,14.067,15.9994,22.98977,24.3050,26.98154,39.0983,40.078,55.845,10*0./ !array of atomic weights
+	data fr0/0.01,0.05,0.15,0.40,0.05,0.06,0.06,0.01,0.20,0.01,10*0./ !fraction by mass for all elements
+	data par_ion/136.4,-3.774,0.083,3.412,3.055,0.049/ !density correction parameters (st. rock)
+    end if
 *       Example for pure water
-c	data zz0/1.,8.,18*0./
-c	data a0/1.008,15.999,18*0./
-c	data fr0/0.1119,0.8881,18*0./
-c	data par_ion/75.0,-3.502,0.2065,3.007,2.5,0.24/ !density correction parameters (water)
-c	data par_ion/75.0,-3.5017,0.09116,3.4773,2.8004,0.24/ !density correction parameters 
+    if(run_num.eq.3)then
+	data zz0/1.,8.,18*0./
+	data a0/1.008,15.999,18*0./
+	data fr0/0.1119,0.8881,18*0./
+	data par_ion/75.0,-3.502,0.2065,3.007,2.5,0.24/ !density correction parameters (water)
+	data par_ion/75.0,-3.5017,0.09116,3.4773,2.8004,0.24/ !density correction parameters 
 c       (pure water - Sternheimer)
-
+    end if
 *       If you need density correction parameters (for ionisation energy loss) for other materials,
 *       please, contact the code developer
 
@@ -160,6 +159,7 @@ c	print *,minv,rho,rad
 *       Start muon transport (the number of muons to be transported is NMUMAX)
 	do i=1,nmumax
 	call ranlux(yfl,1)
+
 *       sample muons according to the power-law spectrum; a user should 
 *       change this to the appropriate formula or use fixed muon energy
 	emu0=(emu00**(-2.7)*yfl)**(-1./2.7)
@@ -237,6 +237,6 @@ c         print *,'emu  ',emu		!if emu<0.106 muon was stopped
 	print *,'theta',themu
 	print *,'phi',phimu
 	
-	stop
-	end
+	END
+
 

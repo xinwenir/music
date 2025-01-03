@@ -7,7 +7,6 @@
 *
 *
 C #include "pilot.h"
-      include 'ranmar.f' 
       SUBROUTINE RNORML(DEVIAS,NDEV)
 C        Generator of a vector of independent Gaussian-distributed 
 C        (pseudo-)random numbers, of mean zero and variance one,

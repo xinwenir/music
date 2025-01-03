@@ -7,7 +7,6 @@
 *
 *
 C #include "pilot.h"
-      include 'rnormal.f'
       SUBROUTINE CORGEN(C,X,NP)
 C
 C         CORSET sets up the generation by calculating C from V.

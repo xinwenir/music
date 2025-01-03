@@ -35,10 +35,7 @@
 *! It simulates also the angular and lateral deflections due to
 *! multiple scattering
 *! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
-      include 'corset.f'
-      include 'corgen.f'
-*!      include 'ranlux.f'
-  
+      
       subroutine initialize_music(minv,rho,rad)
       implicit real*8 (a-h,o-z)
 
@@ -219,6 +216,7 @@ C       FILLING THE ARRAY OF INTEGRAL CROSS-SECTIONS FOR THE SIMULATION
       SUBROUTINE MUSIC
      *(Emu,zf,Emu_f,x,y,z,t0,theta,phi,dr,t10,ms_flag,d_flag)
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 C       V2(100) - ARRAY OF LOG OF RELATIVE ENERGY TRANSFERS (E/EMU) FOR WHICH
 C               THE MUON INTERACTION INTEGRAL CROSS-SECTIONS WERE CALCULATED:
 C               FROM 0.0 TO -5.0 WITH THE STEP OF -0.05. THE INTEGRATION STARTS
@@ -656,7 +654,7 @@ c        theta=180./pi*theta
       REAL*8 v        !fractional energy loss of muon
 * Output:
       REAL*8 theta,phi
-      real*4 yfl
+      REAL*4 yfl
 * theta respect to parent muon direction,always positive!!!
 * phi orthogonal to plane defined by parent muon direction
 * theta phi in deg

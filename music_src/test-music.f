@@ -65,12 +65,6 @@
 *! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
 *
 *       The definitions below should be present in your 'main' program.
-	
-	
-	include 'music-crosssections.f'
-	include 'music.f'
-c	include 'ranlux.f'
-	
 	implicit real*8 (a-h,o-z)
 	parameter (pi=3.141592654)
 	real*4 yfl
@@ -160,6 +154,7 @@ c	print *,minv,rho,rad
 *       Start muon transport (the number of muons to be transported is NMUMAX)
 	do i=1,nmumax
 	call ranlux(yfl,1)
+
 *       sample muons according to the power-law spectrum; a user should 
 *       change this to the appropriate formula or use fixed muon energy
 	emu0=(emu00**(-2.7)*yfl)**(-1./2.7)

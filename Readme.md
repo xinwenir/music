@@ -29,15 +29,15 @@ test-music.f CALL:
     7. muon_transport(x,y,z,cx,cy,cz,emu,depth,ttime,idim,idim1) #Y------music.f  
 
 
-    test-music.f--------|
-                        |-------ranlux.f
-                        |-------music-crosssections.f
-                        |-------music.f---------|
-                                                |--------ranlux.f
-                                                |--------corset.f
-                                                |--------corgen.f-------|       
-                                                                        |-------rnormal.f-------|
-                                                                                                |-------ranmar.f
+    test-music.f----|
+                    |---ranlux.f
+                    |---music-crosssections.f
+                    |---music.f-----|
+                                    |---ranlux.f
+                                    |---corset.f
+                                    |---corgen.f----|       
+                                                    |---rnormal.f---|
+                                                                    |---ranmar.f
 
 The bash file: music.sh is used to generate executable file for the program.
 
@@ -58,13 +58,20 @@ Finally, the compilation command is executed. If the compilation is successful (
 or
 
 1. Compile and generate the executable file: 
-
-        gfortran -Wall -Wextra -o test-music test-music.f ranlux.f music-crosssections.f music.f corset.f corgen.f rnormal.f ranmar.f
+```
+    gfortran -Wall -Wextra -o test-music test_music.f src/ranlux.f src/music-crosssections.f src/music.f src/corset.f src/corgen.f src/rnormal.f src/ranmar.f
+    gfortran -Wall -Wextra -o music_sim music_sim.f ranlux.f music-crosssections.f music.f corset.f corgen.f rnormal.f ranmar.f
+    gfortran -Wall -Wextra -o test-music test-music.f ranlux.f music-crosssections.f music.f corset.f corgen.f rnormal.f ranmar.f
+    gfortran -o test-music test-music.f ranlux.f music-crosssections.f music.f corset.f corgen.f rnormal.f ranmar.f
+    cd src
+    gfortran test-music.f ranlux.o -o test-music
+    rm -rf tmp ii.txt interfaces.txt kernel_names.txt test_music.x* test-music unroll_factor.txt v++* xcd.log xrc.log
+```
 
 
 2. Test the executable file:  
-
-        ./test-music
-
+```
+    ./test-music
+```
 
                                                                                             

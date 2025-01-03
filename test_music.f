@@ -63,14 +63,10 @@
 *! 3. V.A.Kudryavtsev, Computer Physics Communications, 180 (2009) 339; 
 *! http://dx.doi.org/10.1016/j.cpc.2008.10.013; arXiv:0810.4635 [physics.comp-ph]
 *! ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ !
-*
+*! source ~/project/fortran-hls-main/venv/bin/activate
+*! fxx test_music.f test_music 1 test_music hw 2 0 -platform /home/zxw/project/xilinx_project/kv260_custom_platform/system_wrapper.xsa -I src/ -temp_dir tmp
 *       The definitions below should be present in your 'main' program.
-	
-	
-	include 'music-crosssections.f'
-	include 'music.f'
-c	include 'ranlux.f'
-	
+
 	implicit real*8 (a-h,o-z)
 	parameter (pi=3.141592654)
 	real*4 yfl
@@ -160,6 +156,7 @@ c	print *,minv,rho,rad
 *       Start muon transport (the number of muons to be transported is NMUMAX)
 	do i=1,nmumax
 	call ranlux(yfl,1)
+
 *       sample muons according to the power-law spectrum; a user should 
 *       change this to the appropriate formula or use fixed muon energy
 	emu0=(emu00**(-2.7)*yfl)**(-1./2.7)
